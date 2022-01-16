@@ -1,7 +1,8 @@
-.Posts {
+.container {
   background-color: #f3f3f3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 30px;
+  justify-content: center;
+  height: auto;
 }
