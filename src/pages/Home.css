@@ -1,0 +1,7 @@
+.Posts {
+  background-color: #eeeeee;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
