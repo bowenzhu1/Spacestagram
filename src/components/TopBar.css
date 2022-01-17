@@ -1,5 +1,6 @@
 .topbar {
   padding: 15px;
+  padding-left: 25px;
   border-bottom: 1px solid rgb(201, 201, 201);
   user-select: none;
 }
