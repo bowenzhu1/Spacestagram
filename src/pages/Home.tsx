@@ -12,7 +12,7 @@ function Home() {
   const [pictures, setPictures] = useState<Array<APOD>>([]);
 
   const endDate = formatDate(new Date());
-  const startDate = formatDate(new Date(new Date().getTime() - daysToMs(5)));
+  const startDate = formatDate(new Date(new Date().getTime() - daysToMs(10)));
 
   useEffect(() => {
     getAPOD(startDate, endDate).then((data) => {

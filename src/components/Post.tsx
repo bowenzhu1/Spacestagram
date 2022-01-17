@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { APOD } from "../helpers/getAPOD";
+import IconButton from "./IconButton";
 import "./Post.css";
 type Props = {
   picture: APOD;
@@ -10,7 +12,7 @@ export function Post({ picture, onLike }: Props) {
   const [showBody, setBody] = useState(false);
 
   return (
-    <div className="Post">
+    <div className="post">
       <img src={picture.url} alt={picture.title} className={"picture"} />
       <div className="description">
         <div className="header">
@@ -20,19 +22,20 @@ export function Post({ picture, onLike }: Props) {
           </div>
 
           <div className="buttons">
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(picture.url);
-              }}
-            >
-              Link
-            </button>
-            <button onClick={onLike}>
-              {picture.liked ? "Liked" : "Not liked"}
-            </button>
-            <button onClick={() => setBody(!showBody)}>
-              {showBody ? "Hide" : "Show"}
-            </button>
+            <IconButton
+              name={"heart"}
+              type={picture.liked ? "fas" : "far"}
+              style={picture.liked ? { color: "red" } : {}}
+              onClick={onLike}
+            />
+            <IconButton
+              name={"link"}
+              onClick={() => window.open(picture.url)}
+            />
+            <IconButton
+              name={showBody ? "chevron-circle-up" : "chevron-circle-down"}
+              onClick={() => setBody(!showBody)}
+            />
           </div>
         </div>
 
