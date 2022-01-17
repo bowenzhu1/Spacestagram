@@ -26,6 +26,8 @@ export function Post({ picture, onLike }: Props) {
               name={"heart"}
               type={picture.liked ? "fas" : "far"}
               style={picture.liked ? { color: "red" } : {}}
+              liked={picture.liked}
+              showAnimation
               onClick={onLike}
             />
             <IconButton

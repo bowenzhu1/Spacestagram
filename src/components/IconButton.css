@@ -3,3 +3,29 @@
   padding: 5px;
   cursor: pointer;
 }
+
+.icon:hover {
+  color: grey;
+}
+
+.animatedIcon {
+  user-select: none;
+  padding: 5px;
+  cursor: pointer;
+  animation-duration: 1s;
+  animation-name: like-heart-animation;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes like-heart-animation {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.2);
+  }
+  50%,
+  80% {
+    transform: scale(1);
+  }
+}

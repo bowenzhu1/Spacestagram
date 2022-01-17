@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Loading from "./Loading";
 import { APOD, getAPOD } from "../helpers/getAPOD";
 import { formatDate } from "../helpers/formatDate";
@@ -21,6 +21,21 @@ function Home() {
     });
   }, []);
 
+  const observer = useRef<any>();
+  const checkpoint = useCallback((post) => {
+    if (loading) {
+      return;
+    }
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        console.log(test);
+      }
+    });
+  }, []);
+
   function handleLike(index: number) {
     let newPictures = [...pictures];
     let newPicture = { ...newPictures[index] };
@@ -29,7 +44,6 @@ function Home() {
     setPictures(newPictures);
     return;
   }
-
   return (
     <div>
       <TopBar />
@@ -39,13 +53,22 @@ function Home() {
         <div className="Posts">
           {pictures.map(
             (picture, index) =>
-              picture.media_type === "image" && (
+              picture.media_type === "image" &&
+              (index === pictures.length - 5 ? (
+                <div ref={checkpoint}>
+                  <Post
+                    key={picture.url}
+                    picture={picture}
+                    onLike={() => handleLike(index)}
+                  />
+                </div>
+              ) : (
                 <Post
                   key={picture.url}
                   picture={picture}
                   onLike={() => handleLike(index)}
                 />
-              )
+              ))
           )}
         </div>
       )}
