@@ -1,9 +1,14 @@
 .topbar {
   padding: 15px;
   border-bottom: 1px solid rgb(201, 201, 201);
+  user-select: none;
 }
 
-.text {
+.header {
   margin: 0;
-  user-select: none;
+}
+
+.subheader {
+  margin: 0;
+  color: rgb(134, 134, 134);
 }

@@ -3,8 +3,9 @@ import "./Loading.css";
 
 function Loading() {
   return (
-    <div>
-      <p>loading...</p>
+    <div className="container">
+      <img src={"/logo192.png"} alt={"Spaceship"} className="logo" />
+      <p>Preparing for launch...</p>
     </div>
   );
 }
