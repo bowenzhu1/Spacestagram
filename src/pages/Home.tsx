@@ -21,8 +21,6 @@ function Home() {
     });
   }, []);
 
-  console.log(pictures);
-
   function handleLike(index: number) {
     let newPictures = [...pictures];
     let newPicture = { ...newPictures[index] };

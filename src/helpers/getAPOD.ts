@@ -15,7 +15,6 @@ export async function getAPOD(startDate: string, endDate: string) {
   const params = `?api_key=${API_KEY}&start_date=${startDate}&end_date=${endDate}`;
   const API_URL = "https://api.nasa.gov/planetary/apod" + params;
 
-  console.log(API_URL);
   const response = await axios.get(API_URL);
   const picture = response.data;
   return picture;
