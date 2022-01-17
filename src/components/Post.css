@@ -18,6 +18,7 @@
 }
 
 .title {
+  display: inline-block;
   margin: 0;
 }
 
@@ -25,9 +26,14 @@
   margin: 0;
   color: rgb(134, 134, 134);
 }
+
 .description {
   width: 95%;
   padding: 10px;
+}
+
+.buttons {
+  flex-shrink: 0;
 }
 
 .picture {

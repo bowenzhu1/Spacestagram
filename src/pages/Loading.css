@@ -11,6 +11,7 @@
 
 .logo {
   animation: MoveUpDown 2s linear infinite;
+  width: 10%;
 }
 
 @keyframes MoveUpDown {
@@ -19,6 +20,6 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-50px);
+    transform: translateY(-25px);
   }
 }
