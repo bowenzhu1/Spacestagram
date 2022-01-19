@@ -1,7 +1,7 @@
 # Spacestagram
 Live demo: https://bowenz-spacestagram.herokuapp.com/
 
-A website to scroll through images retrieved from NASA's Astronomy Picture of the Day (APOD) API with an interface inspired by Instagram, built using React and TypeScript.
+A website to scroll through images retrieved from NASA's Astronomy Picture of the Day (APOD) API with an interface inspired by Instagram, built using React and TypeScript. Submitted to Shopify's Summer 2022 Frontend Challenge.
 
 ## Features
 - Pictures & descriptions from NASA
