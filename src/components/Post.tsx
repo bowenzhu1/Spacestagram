@@ -1,15 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { APOD } from "../helpers/getAPOD";
 import IconButton from "./IconButton";
 import "./Post.css";
+
 type Props = {
   picture: APOD;
   onLike: () => void;
 };
 
 export function Post({ picture, onLike }: Props) {
-  const [showBody, setBody] = useState(false);
+  const [showBody, setShowBody] = useState(false);
 
   return (
     <div className="post">
@@ -36,7 +36,7 @@ export function Post({ picture, onLike }: Props) {
             />
             <IconButton
               name={showBody ? "chevron-circle-up" : "chevron-circle-down"}
-              onClick={() => setBody(!showBody)}
+              onClick={() => setShowBody(!showBody)}
             />
           </div>
         </div>

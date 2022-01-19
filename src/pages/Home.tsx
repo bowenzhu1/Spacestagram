@@ -1,40 +1,40 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
 import { APOD, getAPOD } from "../helpers/getAPOD";
 import { formatDate } from "../helpers/formatDate";
 import { Post } from "../components/Post";
 import TopBar from "../components/TopBar";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { daysToMs } from "../helpers/daysToMs";
 import "./Home.css";
 
 function Home() {
   const [loading, setLoading] = useState(true);
   const [pictures, setPictures] = useState<Array<APOD>>([]);
-
-  const endDate = formatDate(new Date());
-  const startDate = formatDate(new Date(new Date().getTime() - daysToMs(10)));
+  const [offset, setOffset] = useState(10);
+  const endDate = new Date();
+  const startDate = new Date(new Date().getTime() - daysToMs(offset));
 
   useEffect(() => {
-    getAPOD(startDate, endDate).then((data) => {
+    getAPOD(formatDate(startDate), formatDate(endDate)).then((data) => {
       setPictures(data.reverse());
       setLoading(false);
     });
   }, []);
 
-  const observer = useRef<any>();
-  const checkpoint = useCallback((post) => {
-    if (loading) {
-      return;
-    }
-    if (observer.current) {
-      observer.current.disconnect();
-    }
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        console.log(test);
-      }
+  function handleLoadMore() {
+    const endDateStr = formatDate(
+      new Date(endDate.getTime() - daysToMs(offset + 1))
+    );
+    const startDateStr = formatDate(
+      new Date(endDate.getTime() - daysToMs(offset + 10))
+    );
+    getAPOD(startDateStr, endDateStr).then((data) => {
+      setPictures((pictures) => pictures.concat(data.reverse()));
+      setOffset(offset + 10);
     });
-  }, []);
+    return;
+  }
 
   function handleLike(index: number) {
     let newPictures = [...pictures];
@@ -44,6 +44,7 @@ function Home() {
     setPictures(newPictures);
     return;
   }
+
   return (
     <div>
       <TopBar />
@@ -51,25 +52,32 @@ function Home() {
         <Loading />
       ) : (
         <div className="Posts">
-          {pictures.map(
-            (picture, index) =>
-              picture.media_type === "image" &&
-              (index === pictures.length - 5 ? (
-                <div ref={checkpoint}>
+          <InfiniteScroll
+            dataLength={pictures.length}
+            next={handleLoadMore}
+            hasMore={true}
+            loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
+          >
+            {pictures.map(
+              (picture, index) =>
+                picture.media_type === "image" &&
+                (index === pictures.length - 1 ? (
+                  <div>
+                    <Post
+                      key={picture.url}
+                      picture={picture}
+                      onLike={() => handleLike(index)}
+                    />
+                  </div>
+                ) : (
                   <Post
                     key={picture.url}
                     picture={picture}
                     onLike={() => handleLike(index)}
                   />
-                </div>
-              ) : (
-                <Post
-                  key={picture.url}
-                  picture={picture}
-                  onLike={() => handleLike(index)}
-                />
-              ))
-          )}
+                ))
+            )}
+          </InfiniteScroll>
         </div>
       )}
     </div>
