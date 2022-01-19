@@ -60,22 +60,13 @@ function Home() {
           >
             {pictures.map(
               (picture, index) =>
-                picture.media_type === "image" &&
-                (index === pictures.length - 1 ? (
-                  <div>
-                    <Post
-                      key={picture.url}
-                      picture={picture}
-                      onLike={() => handleLike(index)}
-                    />
-                  </div>
-                ) : (
+                picture.media_type === "image" && (
                   <Post
-                    key={picture.url}
+                    key={index + picture.url}
                     picture={picture}
                     onLike={() => handleLike(index)}
                   />
-                ))
+                )
             )}
           </InfiniteScroll>
         </div>
